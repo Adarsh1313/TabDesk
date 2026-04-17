@@ -1,0 +1,37 @@
+# Dev/internal files
+brace_check.js
+brace_check2.js
+mock_load.mjs
+sandbox.html
+planning_prompt.md
+project_update_report.md
+roleprompt.md
+tabNotion-CLAUDE.md
+TabNotion_Feature_Spec.md
+
+# Skill reference folders (Claude Code)
+chrome-extension/
+code-simplifier/
+debugging/
+
+# Internal docs and scripts
+docs/
+scripts/
+
+# Sensitive files
+assets/Visa Gift Card.png
+assets/Screenshot 2025-08-14 064823.png
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Claude Code
+.claude/
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo

@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "TabDesk - Smart Tab Manager",
+  "version": "2.2",
+  "description": "Organize, save, and manage your browser tabs with a powerful side panel workspace.",
+  "permissions": [
+    "sidePanel",
+    "storage",
+    "tabs",
+    "tabGroups",
+    "contextMenus"
+  ],
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "assets/icon-16.png",
+    "48": "assets/icon-48.png",
+    "128": "assets/icon-128.png"
+  },
+  "action": {
+    "default_title": "Open TabDesk"
+  }
+}
