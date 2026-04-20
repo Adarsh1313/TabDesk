@@ -31,17 +31,44 @@ export class TabCard {
 
         const icon = utils.createElement('img', 'tab-icon');
 
-        const isExtensionPage = this.tab.url?.startsWith('chrome://') ||
-            this.tab.url?.startsWith('chrome-extension://') ||
-            this.tab.url?.startsWith('edge://');
+        const FALLBACK_ICON = 'assets/icon-generic.png';
 
-        if (isExtensionPage || !this.tab.favIconUrl || this.tab.favIconUrl === '') {
-            icon.src = 'assets/icon-16.png';
-        } else {
+        const isInternalPage = !this.tab.url ||
+            this.tab.url.startsWith('chrome://') ||
+            this.tab.url.startsWith('chrome-extension://') ||
+            this.tab.url.startsWith('edge://');
+
+        const googleFaviconUrl = (url) => {
+            try {
+                const domain = new URL(url).hostname;
+                return `https://www.google.com/s2/favicons?domain=${domain}&sz=32`;
+            } catch {
+                return null;
+            }
+        };
+
+        if (isInternalPage) {
+            icon.src = FALLBACK_ICON;
+        } else if (this.tab.favIconUrl && this.tab.favIconUrl !== '') {
             icon.src = this.tab.favIconUrl;
             icon.onerror = () => {
-                icon.src = 'assets/icon-16.png';
+                const goog = googleFaviconUrl(this.tab.url);
+                if (goog) {
+                    icon.src = goog;
+                    icon.onerror = () => { icon.src = FALLBACK_ICON; };
+                } else {
+                    icon.src = FALLBACK_ICON;
+                }
             };
+        } else {
+            // No favIconUrl — try Google favicon service directly
+            const goog = googleFaviconUrl(this.tab.url);
+            if (goog) {
+                icon.src = goog;
+                icon.onerror = () => { icon.src = FALLBACK_ICON; };
+            } else {
+                icon.src = FALLBACK_ICON;
+            }
         }
 
         const speakerIcon = utils.createElement('span', 'speaker-icon');
